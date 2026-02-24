@@ -1,0 +1,10 @@
+{% extends "student_portal/base.html" %}
+{% block title %}Student Login{% endblock %}
+{% block content %}
+<h2 class="section-title">Student Login</h2>
+<form method="post" class="form-shell">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary" type="submit">Log In</button>
+</form>
+{% endblock %}

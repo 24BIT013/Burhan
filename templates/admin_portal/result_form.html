@@ -1,0 +1,11 @@
+{% extends "admin_portal/base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<h2 class="section-title">{{ title }}</h2>
+<form method="post" class="form-shell">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary" type="submit">Save Result</button>
+</form>
+<p class="helper-link"><a href="{% url 'admin_portal:result_list' %}">Back to results</a></p>
+{% endblock %}

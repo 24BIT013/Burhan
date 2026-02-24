@@ -1,0 +1,11 @@
+{% extends "admin_portal/base.html" %}
+{% block title %}Add Enrollment{% endblock %}
+{% block content %}
+<h2 class="section-title">Add Enrollment</h2>
+<form method="post" class="form-shell">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary" type="submit">Save Enrollment</button>
+</form>
+<p class="helper-link"><a href="{% url 'admin_portal:enrollment_list' %}">Back to enrollments</a></p>
+{% endblock %}

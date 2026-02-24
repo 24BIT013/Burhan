@@ -1,0 +1,26 @@
+{% extends "student_portal/base.html" %}
+{% block title %}My Results{% endblock %}
+{% block content %}
+<h2 class="section-title">Released Results</h2>
+<div class="actions">
+    <a class="btn btn-primary" href="{% url 'student_portal:download_results_pdf' %}">Download PDF Report</a>
+    <a href="{% url 'student_portal:dashboard' %}">Back to Dashboard</a>
+</div>
+<table>
+    <tr><th>Course</th><th>Marks</th><th>GPA</th><th>Grade</th><th>Status</th></tr>
+    {% for result in results %}
+    <tr>
+        <td>{{ result.enrollment.course.code }} - {{ result.enrollment.course.title }}</td>
+        <td>{{ result.marks }}</td>
+        <td>{{ result.gpa }}</td>
+        <td>{{ result.grade }}</td>
+        <td>{{ result.get_status_display }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">No released results yet.</td></tr>
+    {% endfor %}
+</table>
+<p><strong>Total GPA Points:</strong> {{ total_points }}</p>
+<p><strong>Total Units:</strong> {{ total_units }}</p>
+<p><strong>CGPA:</strong> {{ cgpa }}</p>
+{% endblock %}

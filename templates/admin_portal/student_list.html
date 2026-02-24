@@ -1,0 +1,19 @@
+{% extends "admin_portal/base.html" %}
+{% block title %}Registered Students{% endblock %}
+{% block content %}
+<h2 class="section-title">Registered Students</h2>
+<table>
+    <tr><th>Matric Number</th><th>Name</th><th>Department</th><th>Level</th><th>Username</th><th>Action</th></tr>
+    {% for student in students %}
+    <tr>
+        <td>{{ student.matric_number }}</td>
+        <td>{{ student.user.get_full_name }}</td>
+        <td>{{ student.department }}</td>
+        <td>{{ student.level }}</td>
+        <td>{{ student.user.username }}</td>
+        <td><a class="btn btn-primary" href="{% url 'admin_portal:student_edit' student.pk %}">Edit</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<p class="helper-link"><a href="{% url 'admin_portal:dashboard' %}">Back to dashboard</a></p>
+{% endblock %}

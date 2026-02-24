@@ -1,0 +1,23 @@
+{% extends "admin_portal/base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<h2 class="section-title">Admin Dashboard</h2>
+<div class="actions">
+    <a class="btn btn-primary" href="{% url 'admin_portal:student_create' %}">Register Student</a>
+    <a class="btn btn-primary" href="{% url 'admin_portal:course_create' %}">Add Course</a>
+    <a class="btn btn-primary" href="{% url 'admin_portal:enrollment_create' %}">Add Enrollment</a>
+    <a class="btn btn-primary" href="{% url 'admin_portal:result_create' %}">Enter Result</a>
+</div>
+<div class="metrics">
+    <div class="metric">Students <b>{{ student_count }}</b></div>
+    <div class="metric">Courses <b>{{ course_count }}</b></div>
+    <div class="metric">Enrollments <b>{{ enrollment_count }}</b></div>
+    <div class="metric">Results <b>{{ result_count }}</b></div>
+</div>
+<div class="actions">
+    <a href="{% url 'admin_portal:student_list' %}">View Students</a>
+    <a href="{% url 'admin_portal:course_list' %}">View Courses</a>
+    <a href="{% url 'admin_portal:enrollment_list' %}">View Enrollments</a>
+    <a href="{% url 'admin_portal:result_list' %}">View Results</a>
+</div>
+{% endblock %}

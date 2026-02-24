@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}School Management System{% endblock %}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f4f6f8; }
+        nav { background: #1f3a5f; color: #fff; padding: 12px 20px; }
+        nav a { color: #fff; margin-right: 14px; text-decoration: none; font-weight: 600; }
+        .container { max-width: 1000px; margin: 20px auto; background: #fff; padding: 20px; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #f0f2f4; }
+        .btn { padding: 7px 12px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn-primary { background: #1f3a5f; color: #fff; }
+        .btn-danger { background: #aa2e2e; color: #fff; }
+        .msg { padding: 10px; margin-bottom: 12px; border-radius: 4px; }
+        .msg.success { background: #e5f7ec; color: #126a34; }
+        .msg.error { background: #fde8e8; color: #8f1d1d; }
+        form p { margin-bottom: 10px; }
+        input, select { width: 100%; padding: 8px; box-sizing: border-box; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Student Login</a>
+        <a href="/admin-portal/login/">Admin Login</a>
+    </nav>
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="msg {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

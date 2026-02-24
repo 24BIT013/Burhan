@@ -1,0 +1,18 @@
+{% extends "admin_portal/base.html" %}
+{% block title %}Courses{% endblock %}
+{% block content %}
+<h2 class="section-title">Courses</h2>
+<p><a class="btn btn-primary" href="{% url 'admin_portal:course_create' %}">Add New Course</a></p>
+<table>
+    <tr><th>Code</th><th>Title</th><th>Units</th><th>Action</th></tr>
+    {% for course in courses %}
+    <tr>
+        <td>{{ course.code }}</td>
+        <td>{{ course.title }}</td>
+        <td>{{ course.units }}</td>
+        <td><a href="{% url 'admin_portal:course_edit' course.pk %}">Edit</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<p class="helper-link"><a href="{% url 'admin_portal:dashboard' %}">Back to dashboard</a></p>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "admin_portal/base.html" %}
+{% block title %}Results{% endblock %}
+{% block content %}
+<h2 class="section-title">Results</h2>
+<p><a class="btn btn-primary" href="{% url 'admin_portal:result_create' %}">Enter New Result</a></p>
+<table>
+    <tr><th>Student</th><th>Course</th><th>Marks</th><th>Grade</th><th>GPA</th><th>Status</th><th>Released</th><th>Action</th></tr>
+    {% for result in results %}
+    <tr>
+        <td>{{ result.enrollment.student }}</td>
+        <td>{{ result.enrollment.course }}</td>
+        <td>{{ result.marks }}</td>
+        <td>{{ result.grade }}</td>
+        <td>{{ result.gpa }}</td>
+        <td>{{ result.get_status_display }}</td>
+        <td>{{ result.released }}</td>
+        <td><a href="{% url 'admin_portal:result_edit' result.pk %}">Edit</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<p class="helper-link"><a href="{% url 'admin_portal:dashboard' %}">Back to dashboard</a></p>
+{% endblock %}

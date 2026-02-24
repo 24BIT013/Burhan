@@ -1,0 +1,45 @@
+{% extends "student_portal/base.html" %}
+{% block title %}Student Dashboard{% endblock %}
+{% block content %}
+<h2 class="section-title">Welcome, {{ request.user.get_full_name|default:request.user.username }}</h2>
+<div class="actions">
+    <a href="{% url 'student_portal:results' %}">View Results</a>
+</div>
+<h3>Course Registration</h3>
+<table>
+    <tr><th>Code</th><th>Title</th><th>Units</th><th>Status</th><th>Action</th></tr>
+    {% for course in courses %}
+    <tr>
+        <td>{{ course.code }}</td>
+        <td>{{ course.title }}</td>
+        <td>{{ course.units }}</td>
+        <td>
+            {% if course.id in approved_ids %}
+                Approved
+            {% elif course.id in pending_ids %}
+                Pending Approval
+            {% else %}
+                Not Registered
+            {% endif %}
+        </td>
+        <td>
+            {% if course.id in enrolled_ids %}
+                {% if course.id in approved_ids %}
+                    <button class="btn btn-danger" type="button" disabled>Drop Locked</button>
+                {% else %}
+                    <form method="post" action="{% url 'student_portal:drop_course' course.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" type="submit">Drop</button>
+                    </form>
+                {% endif %}
+            {% else %}
+                <form method="post" action="{% url 'student_portal:register_course' course.id %}">
+                    {% csrf_token %}
+                    <button class="btn btn-primary" type="submit">Register</button>
+                </form>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
