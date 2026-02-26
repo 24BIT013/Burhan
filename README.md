@@ -2,10 +2,10 @@
 
 This project is now split into:
 
-- `backend/`: Django project, apps, migrations, dependencies, and runtime entry points.
-- `frontend/`: Django templates and static assets.
+- `backend/`: Django project, apps, migrations, dependencies, and runtime entry points (Render).
+- `frontend/`: Next.js frontend app for Vercel, plus the existing Django templates/static used by backend rendering.
 
-## Run locally
+## Backend local run
 
 1. Create and activate a virtual environment (optional).
 2. Install dependencies:
@@ -22,9 +22,31 @@ This project is now split into:
    python manage.py runserver
    ```
 
-## URLs
+## Frontend local run
 
-- Student login: `/`
-- Admin login: `/admin-portal/login/`
-- Admin registration: `/admin-portal/register/`
-- Django admin: `/django-admin/`
+1. Install dependencies:
+   ```bash
+   cd frontend
+   npm install
+   ```
+2. Configure backend URL:
+   - Create `frontend/.env.local` with:
+   ```bash
+   NEXT_PUBLIC_BACKEND_URL=https://burhan-7.onrender.com
+   ```
+3. Run frontend:
+   ```bash
+   npm run dev
+   ```
+
+## Deploy
+
+- Render (backend):
+  - Root Directory: `backend`
+  - Build Command: `bash build.sh`
+  - Start Command: `gunicorn burhan.wsgi:application --bind 0.0.0.0:$PORT`
+- Vercel (frontend):
+  - Root Directory: `frontend`
+  - Framework: Next.js
+  - Build Command: `npm run build`
+  - Env var: `NEXT_PUBLIC_BACKEND_URL`
