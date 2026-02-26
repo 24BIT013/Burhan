@@ -18,6 +18,13 @@ def env_bool(name: str, default: bool = False) -> bool:
     return value.strip().lower() in {"1", "true", "yes", "on"}
 
 
+def env_list(name: str) -> list[str]:
+    raw = os.environ.get(name, "")
+    if not raw.strip():
+        return []
+    return [item.strip() for item in raw.split(",") if item.strip()]
+
+
 def db_from_database_url(url: str):
     parsed = urlparse(url)
     scheme = (parsed.scheme or "").lower()
@@ -64,15 +71,19 @@ raw_hosts = os.environ.get("ALLOWED_HOSTS", "")
 if raw_hosts.strip():
     ALLOWED_HOSTS = [host.strip() for host in raw_hosts.split(",") if host.strip()]
 else:
-    ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".onrender.com"]
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".onrender.com", ".vercel.app"]
 
-CSRF_TRUSTED_ORIGINS = [
+CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS") or [
     "http://localhost:8000",
     "http://127.0.0.1:8000",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
     "https://*.onrender.com",
+    "https://*.vercel.app",
 ]
 
 INSTALLED_APPS = [
+    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -85,6 +96,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -92,6 +104,13 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = env_list("CORS_ALLOWED_ORIGINS")
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.vercel\.app$",
+]
+CORS_ALLOW_ALL_ORIGINS = env_bool("CORS_ALLOW_ALL_ORIGINS", default=False)
 
 ROOT_URLCONF = "burhan.urls"
 
