@@ -103,3 +103,22 @@ LOGIN_REDIRECT_URL = 'student_portal:dashboard'
 LOGOUT_REDIRECT_URL = 'student_portal:login'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import os
+import dj_database_url
+
+# SECURITY
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG') == 'True'
+
+# DATABASE
+DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+}
+
+# STATIC FILES
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, '../frontend/static'),  # adjust path if needed
+]
