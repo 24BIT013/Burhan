@@ -1,5 +1,5 @@
 """
-Django settings for school_management project.
+Django settings for burhan project.
 """
 
 from pathlib import Path
@@ -38,7 +38,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'school_management.urls'
+ROOT_URLCONF = 'burhan.urls'
 
 TEMPLATES = [
     {
@@ -56,7 +56,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'school_management.wsgi.application'
+WSGI_APPLICATION = 'burhan.wsgi.application'
 
 DATABASES = {
     'default': {
