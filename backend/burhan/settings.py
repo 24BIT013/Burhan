@@ -114,17 +114,26 @@ WSGI_APPLICATION = "burhan.wsgi.application"
 ASGI_APPLICATION = "burhan.asgi.application"
 
 database_url = os.environ.get("DATABASE_URL")
+db_engine = os.environ.get("DB_ENGINE")
+db_name = os.environ.get("DB_NAME")
 if database_url:
     DATABASES = {"default": db_from_database_url(database_url)}
+elif db_engine and db_name:
+    DATABASES = {
+        "default": {
+            "ENGINE": db_engine,
+            "NAME": db_name,
+            "USER": os.environ.get("DB_USER", ""),
+            "PASSWORD": os.environ.get("DB_PASSWORD", ""),
+            "HOST": os.environ.get("DB_HOST", ""),
+            "PORT": os.environ.get("DB_PORT", ""),
+        }
+    }
 else:
     DATABASES = {
         "default": {
-            "ENGINE": os.environ.get("DB_ENGINE", "django.db.backends.postgresql"),
-            "NAME": os.environ.get("DB_NAME", "school_management"),
-            "USER": os.environ.get("DB_USER", "postgres"),
-            "PASSWORD": os.environ.get("DB_PASSWORD", "12345"),
-            "HOST": os.environ.get("DB_HOST", "localhost"),
-            "PORT": os.environ.get("DB_PORT", "5432"),
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": str(BASE_DIR / "db.sqlite3"),
         }
     }
 
@@ -149,7 +158,10 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [FRONTEND_DIR / "static"]
+STATICFILES_DIRS = []
+frontend_static_dir = FRONTEND_DIR / "static"
+if frontend_static_dir.exists():
+    STATICFILES_DIRS.append(frontend_static_dir)
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = "/media/"
