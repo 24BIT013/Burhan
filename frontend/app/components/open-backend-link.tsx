@@ -5,41 +5,22 @@ import { useState } from "react";
 type OpenBackendLinkProps = {
   href: string;
   label: string;
-  timeoutMs?: number;
 };
 
-export default function OpenBackendLink({ href, label, timeoutMs = 8000 }: OpenBackendLinkProps) {
-  const [checking, setChecking] = useState(false);
-  const [error, setError] = useState("");
+export default function OpenBackendLink({ href, label }: OpenBackendLinkProps) {
+  const [notice, setNotice] = useState("");
 
-  async function handleClick() {
-    setError("");
-    setChecking(true);
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), timeoutMs);
-
-    try {
-      await fetch(href, {
-        method: "HEAD",
-        mode: "no-cors",
-        cache: "no-store",
-        signal: controller.signal,
-      });
-      window.open(href, "_blank", "noopener,noreferrer");
-    } catch {
-      setError("Backend haijibu kwa sasa. Jaribu tena baada ya sekunde chache.");
-    } finally {
-      clearTimeout(timer);
-      setChecking(false);
-    }
+  function handleClick() {
+    setNotice("Ukiona loading ndefu, backend ya Render inaamka. Subiri sekunde 30-60.");
+    window.open(href, "_blank", "noopener,noreferrer");
   }
 
   return (
     <div>
-      <button type="button" onClick={handleClick} disabled={checking}>
-        {checking ? "Opening..." : label}
+      <button type="button" onClick={handleClick}>
+        {label}
       </button>
-      {error ? <p className="error">{error}</p> : null}
+      {notice ? <p className="error">{notice}</p> : null}
     </div>
   );
 }

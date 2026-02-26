@@ -32,7 +32,7 @@ This project is now split into:
 2. Configure backend URL:
    - Create `frontend/.env.local` with:
    ```bash
-   NEXT_PUBLIC_BACKEND_URL=https://burhan-7.onrender.com
+   NEXT_PUBLIC_BACKEND_URL=https://burhan-2.onrender.com
    ```
 3. Run frontend:
    ```bash
@@ -50,3 +50,4 @@ This project is now split into:
   - Framework: Next.js
   - Build Command: `npm run build`
   - Env var: `NEXT_PUBLIC_BACKEND_URL`
+

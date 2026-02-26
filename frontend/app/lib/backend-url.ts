@@ -1,4 +1,4 @@
-const DEFAULT_BACKEND_URL = "https://burhan-7.onrender.com";
+const DEFAULT_BACKEND_URL = "https://burhan-2.onrender.com";
 
 export function getBackendUrl(rawUrl?: string): string {
   const trimmed = (rawUrl || "").trim();
@@ -16,3 +16,4 @@ export function getBackendUrl(rawUrl?: string): string {
     return DEFAULT_BACKEND_URL;
   }
 }
+

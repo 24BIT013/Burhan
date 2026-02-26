@@ -1,4 +1,4 @@
-const DEFAULT_BACKEND_URL = "https://burhan-7.onrender.com";
+const DEFAULT_BACKEND_URL = "https://burhan-2.onrender.com";
 
 function normalizeBackendUrl(rawUrl) {
   const trimmed = (rawUrl || "").trim();
@@ -31,3 +31,4 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
