@@ -1,4 +1,6 @@
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "https://burhan-7.onrender.com";
+import { getBackendUrl } from "../lib/backend-url";
+
+const backendUrl = getBackendUrl(process.env.NEXT_PUBLIC_BACKEND_URL);
 
 export default function StudentPage() {
   return (

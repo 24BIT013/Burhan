@@ -1,6 +1,6 @@
 const DEFAULT_BACKEND_URL = "https://burhan-7.onrender.com";
 
-function normalizeBackendUrl(rawUrl) {
+export function getBackendUrl(rawUrl?: string): string {
   const trimmed = (rawUrl || "").trim();
   if (!trimmed) return DEFAULT_BACKEND_URL;
 
@@ -16,18 +16,3 @@ function normalizeBackendUrl(rawUrl) {
     return DEFAULT_BACKEND_URL;
   }
 }
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  async rewrites() {
-    const backendUrl = normalizeBackendUrl(process.env.NEXT_PUBLIC_BACKEND_URL);
-    return [
-      {
-        source: "/backend/:path*",
-        destination: `${backendUrl}/:path*`
-      }
-    ];
-  }
-};
-
-export default nextConfig;
